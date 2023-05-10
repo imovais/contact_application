@@ -2,16 +2,13 @@
 
 import 'package:flutter/material.dart';
 
-import '../_UTILS/const.dart';
+import '../_UTILS/data.dart';
 
-class DetailScreen extends StatefulWidget {
-  const DetailScreen({super.key});
+class DetailScreen extends StatelessWidget {
+  const DetailScreen({this.myindex, super.key});
 
-  @override
-  State<DetailScreen> createState() => _DetailScreenState();
-}
+  final myindex;
 
-class _DetailScreenState extends State<DetailScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -22,25 +19,23 @@ class _DetailScreenState extends State<DetailScreen> {
           foregroundColor: Colors.black,
           title: Text('Contact Detail'),
         ),
-        body: Column(
-          children: [
-            Container(
-              width: double.infinity,
-              height: 250,
-              color: Colors.grey.shade300,
-              child: Container(
+        body: Center(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  image: DecorationImage(
-                      fit: BoxFit.fitWidth, image: Images.personicon),
                   color: Colors.grey.shade300,
                 ),
                 padding: EdgeInsets.only(top: 100, bottom: 30),
                 width: 100,
                 height: 100,
-              ),
-            )
-          ],
+                child:
+                    Text(Data.contact[myindex]['name'].toString()[0].toUpperCase()),
+              )
+            ],
+          ),
         ),
       ),
     );

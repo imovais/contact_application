@@ -1,9 +1,9 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_interpolation_to_compose_strings
 
-import 'package:contact_app/_UTILS/const.dart';
+//import 'package:contact_app/_UTILS/const.dart';
 import 'package:flutter/material.dart';
 import '../_UTILS/data.dart';
-import 'addbutton.dart';
+import 'form.dart';
 import 'detailscreen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -16,15 +16,19 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   TextEditingController namecontroller = TextEditingController();
   TextEditingController phonecontroller = TextEditingController();
+  TextEditingController surnamecontroller = TextEditingController();
 
   //ADD FUNCTION
   addcontact() {
     setState(() {});
     Navigator.pop(context, 'OK');
-    Data.contact
-        .add({'name': namecontroller.text, 'phone': phonecontroller.text});
+    Data.contact.add({
+      'name': namecontroller.text + " " + surnamecontroller.text,
+      'phone': phonecontroller.text
+    });
     namecontroller.clear();
     phonecontroller.clear();
+    surnamecontroller.clear();
   }
 
   @override
@@ -50,25 +54,38 @@ class _HomeScreenState extends State<HomeScreen> {
             body: ListView.builder(
               itemCount: Data.contact.length,
               itemBuilder: (context, idx) {
+                var myindex = Data.contact[idx];
                 return InkWell(
                   onTap: () {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => DetailScreen(),
+                          builder: (context) => DetailScreen(myindex: myindex),
                         ));
                   },
-                  child: Card(
-                    child: ListTile(
-                      leading: CircleAvatar(
-                        radius: 20,
-                        backgroundColor: Colors.blue,
-                        backgroundImage: Images.personicon,
+                  child: ListTile(
+                    leading: Container(
+                      width: 50,
+                      height: 50,
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle, color: Colors.grey.shade300),
+                      child: Center(
+                        child: Text(
+                            style: TextStyle(fontSize: 18),
+                            Data.contact[idx]['name']
+                                .toString()[0]
+                                .toUpperCase()),
                       ),
-                      title: Text(Data.contact[idx]['name'].toString()),
-                      subtitle: Text(Data.contact[idx]['phone'].toString()),
-                      trailing: Icon(color: Colors.green, Icons.call),
                     ),
+
+                    // CircleAvatar(
+                    //   radius: 20,
+                    //   backgroundColor: Colors.blue,
+                    //   backgroundImage: Images.personicon,
+                    // ),
+                    title: Text(Data.contact[idx]['name'].toString()),
+                    subtitle: Text(Data.contact[idx]['phone'].toString()),
+                    trailing: Icon(color: Colors.green, Icons.call),
                   ),
                 );
               },
@@ -79,36 +96,31 @@ class _HomeScreenState extends State<HomeScreen> {
               onPressed: () => showDialog<String>(
                 context: context,
                 builder: (BuildContext context) => AlertDialog(
+                  scrollable: true,
                   titlePadding: EdgeInsets.all(0),
                   contentPadding:
                       EdgeInsets.only(bottom: 150, left: 20, right: 20),
                   title: AppBar(
-                    actions: [
-                      TextButton(
-                          onPressed: () {
-                            addcontact();
-                          },
-                          child: Icon(Icons.done)),
-                    ],
                     backgroundColor: Colors.transparent,
                     elevation: 0,
                     foregroundColor: Colors.black,
-                    title: Text('Add'),
+                    title: Text('Create New Contact'),
                   ),
                   content: myform(
+                      mysurnamecontroller: surnamecontroller,
                       mynamecontroller: namecontroller,
                       myphonecontroller: phonecontroller),
-                  // actions: <Widget>[
-                  //   // TextButton(
-                  //   //   onPressed: () => Navigator.pop(context, 'Cancel'),
-                  //   //   child: const Text('Cancel'),
-                  //   // ),
-                  //   TextButton(
-                  //       onPressed: () {
-                  //         addcontact();
-                  //       },
-                  //       child: Icon(Icons.done)),
-                  // ],
+                  actions: <Widget>[
+                    TextButton(
+                      onPressed: () => Navigator.pop(context, 'Cancel'),
+                      child: Icon(Icons.close),
+                    ),
+                    TextButton(
+                        onPressed: () {
+                          addcontact();
+                        },
+                        child: Icon(Icons.done)),
+                  ],
                 ),
               ),
               child: Icon(Icons.add),

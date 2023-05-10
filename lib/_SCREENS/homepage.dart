@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 
 import '../_UTILS/data.dart';
-import 'addbutton.dart';
+import 'form.dart';
 
 class HoomePage extends StatefulWidget {
   const HoomePage({super.key});
@@ -15,6 +15,7 @@ class HoomePage extends StatefulWidget {
 class _HoomePageState extends State<HoomePage> {
   var namecontroller = TextEditingController();
   var phonecontroller = TextEditingController();
+  var surnamecontroller = TextEditingController();
 
   addcontact() {
     setState(() {});
@@ -65,6 +66,7 @@ class _HoomePageState extends State<HoomePage> {
                                         AlertDialog(
                                       title: const Text('U P D A T E'),
                                       content: myform(
+                                          mysurnamecontroller: surnamecontroller,
                                           mynamecontroller: namecontroller,
                                           myphonecontroller: phonecontroller),
                                       actions: <Widget>[
@@ -111,6 +113,7 @@ class _HoomePageState extends State<HoomePage> {
             builder: (BuildContext context) => AlertDialog(
               title: const Text('AlertDialog Title'),
               content: myform(
+                mysurnamecontroller: namecontroller,
                   mynamecontroller: namecontroller,
                   myphonecontroller: phonecontroller),
               actions: <Widget>[
