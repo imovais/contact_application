@@ -1,13 +1,12 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors,, prefer_typing_uninitialized_variables
 
 import 'package:flutter/material.dart';
 
 import '../_UTILS/data.dart';
 
 class DetailScreen extends StatelessWidget {
-  const DetailScreen({this.myindex, super.key});
-
   final myindex;
+  const DetailScreen({this.myindex, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -31,8 +30,8 @@ class DetailScreen extends StatelessWidget {
                 padding: EdgeInsets.only(top: 100, bottom: 30),
                 width: 100,
                 height: 100,
-                child:
-                    Text(Data.contact[myindex]['name'].toString()[0].toUpperCase()),
+                child: Text(
+                    Data.contact[myindex]['name'].toString()[0].toUpperCase()),
               )
             ],
           ),
