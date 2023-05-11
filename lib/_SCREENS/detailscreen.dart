@@ -2,10 +2,12 @@
 
 import 'package:flutter/material.dart';
 
-//import '../_UTILS/data.dart';
-
 class DetailScreen extends StatelessWidget {
-  const DetailScreen({super.key});
+  final Map data;
+
+  const DetailScreen({super.key, required this.data});
+
+  // get idx => data;
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +41,9 @@ class DetailScreen extends StatelessWidget {
                     decoration: BoxDecoration(
                         shape: BoxShape.circle, color: Colors.grey.shade300),
                     child: Center(
-                        child: Text(style: TextStyle(fontSize: 40), 'A')),
+                        child: Text(
+                            style: TextStyle(fontSize: 40),
+                            data['name'].toString()[0])),
                   ),
                 ),
                 SizedBox(
@@ -47,14 +51,16 @@ class DetailScreen extends StatelessWidget {
                 ),
                 Text(
                     style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                    'Ovais KHan'),
+                    data['name'].toString()),
                 SizedBox(
                   height: 20,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(style: TextStyle(fontSize: 22), '03423147577'),
+                    Text(
+                        style: TextStyle(fontSize: 22),
+                        data['phone'].toString()),
                     Row(
                       children: [
                         Container(
@@ -95,7 +101,7 @@ class DetailScreen extends StatelessWidget {
                 ),
                 Expanded(
                   child: ListView.builder(
-                    itemCount: 10,
+                    itemCount: 5,
                     itemBuilder: (context, idx) {
                       return ListTile(
                         title: Text(

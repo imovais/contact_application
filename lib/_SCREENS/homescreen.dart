@@ -54,13 +54,13 @@ class _HomeScreenState extends State<HomeScreen> {
             body: ListView.builder(
               itemCount: Data.contact.length,
               itemBuilder: (context, idx) {
-                // Data mylist = Data.contact[idx];
                 return InkWell(
                   onTap: () {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => DetailScreen(),
+                          builder: (context) =>
+                              DetailScreen(data: Data.contact[idx]),
                         ));
                   },
                   child: ListTile(
