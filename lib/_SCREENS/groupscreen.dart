@@ -1,13 +1,20 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:contact_app/_UTILS/add.dart';
+import 'package:contact_app/_UTILS/const.dart';
 import 'package:flutter/material.dart';
 
 import '../_UTILS/data.dart';
 import '../_WIDGETS/groupcontainer.dart';
 
-class GroupScreen extends StatelessWidget {
+class GroupScreen extends StatefulWidget {
   const GroupScreen({super.key});
 
+  @override
+  State<GroupScreen> createState() => _GroupScreenState();
+}
+
+class _GroupScreenState extends State<GroupScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,11 +60,19 @@ class GroupScreen extends StatelessWidget {
                 itemCount: Data.favourites.length,
                 itemBuilder: (context, indx) {
                   return ListTile(
+                    onTap: () {
+                      ontabrecenthistory(
+                          indx,
+                          Data.favourites[indx]['name'].toString(),
+                          Data.favourites[indx]['phone'].toString());
+                      makePhoneCall(Data.favourites[indx]['phone'].toString());
+                    },
                     leading: Container(
                       width: 40,
                       height: 40,
                       decoration: BoxDecoration(
-                          shape: BoxShape.circle, color: Colors.red.shade100),
+                          shape: BoxShape.circle,
+                          color: Color.fromARGB(255, 255, 232, 234)),
                       child: Center(
                         child: Text(
                             style: TextStyle(
@@ -73,8 +88,14 @@ class GroupScreen extends StatelessWidget {
                         style: TextStyle(
                             fontSize: 16, fontWeight: FontWeight.w500),
                         Data.favourites[indx]['name'].toString()),
-                    trailing: Icon(
-                        size: 20, color: Colors.red.shade800, Icons.favorite),
+                    trailing: IconButton(
+                        onPressed: () {
+                          setState(() {});
+                          Data.favourites.removeAt(indx);
+                        },
+                        iconSize: 20,
+                        color: Colors.red.shade800,
+                        icon: Icon(Icons.favorite)),
                   );
                 },
               ),

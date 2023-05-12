@@ -43,25 +43,13 @@ class _HomeScreenState extends State<HomeScreen> {
               backgroundColor: Colors.transparent,
               elevation: 0,
               title: Text('Contact'),
-              actions: [
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    IconButton(onPressed: () {}, icon: Icon(Icons.search)),
-                    IconButton(onPressed: () {}, icon: Icon(Icons.more_vert)),
-                  ],
-                )
-              ],
+              actions: [IconButton(onPressed: () {}, icon: Icon(Icons.search))],
             ),
             body: ListView.builder(
               itemCount: Data.contact.length,
               itemBuilder: (context, idx) {
                 return ListTile(
                     onTap: () {
-                      ontabrecenthistory(
-                          idx,
-                          Data.contact[idx]['name'].toString(),
-                          Data.contact[idx]['phone'].toString());
                       Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -90,20 +78,55 @@ class _HomeScreenState extends State<HomeScreen> {
                         style: TextStyle(
                             fontSize: 12, fontWeight: FontWeight.normal),
                         Data.contact[idx]['phone'].toString()),
-                    trailing: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        IconButton(
-                            onPressed: () => makePhoneCall(
-                                Data.contact[idx]['phone'].toString()),
-                            icon: Icon(color: Colors.green, Icons.call)),
-                        IconButton(
-                            onPressed: () =>
-                                makeSms(Data.contact[idx]['phone'].toString()),
-                            icon:
-                                Icon(color: Colors.yellow.shade800, Icons.sms)),
-                      ],
-                    ));
+                    trailing: PopupMenuButton(
+                        icon: Icon(Icons.more_vert),
+                        onSelected: (value) {
+                          if (value == 1) {
+                            makePhoneCall(
+                                Data.contact[idx]['phone'].toString());
+                            ontabrecenthistory(
+                                idx,
+                                Data.contact[idx]['name'].toString(),
+                                Data.contact[idx]['phone'].toString());
+                          }
+                          if (value == 2) {
+                            makeSms(Data.contact[idx]['phone'].toString());
+                          }
+                          if (value == 3) {
+                            addtofavorite(
+                                idx,
+                                Data.contact[idx]['name'].toString(),
+                                Data.contact[idx]['phone'].toString());
+                          }
+                          if (value == 4) {
+                            setState(() {});
+                            Data.contact.removeAt(idx);
+                          }
+                        },
+                        itemBuilder: (context) => [
+                              PopupMenuItem(
+                                value: 1,
+                                child: Text('Call'),
+                              ),
+                              PopupMenuItem(
+                                value: 2,
+                                child: Text('Sms'),
+                              ),
+                              PopupMenuItem(
+                                value: 3,
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text('Add to '),
+                                    Icon(color: Colors.red, Icons.favorite)
+                                  ],
+                                ),
+                              ),
+                              PopupMenuItem(
+                                value: 4,
+                                child: Text('Delete'),
+                              ),
+                            ]));
               },
             ),
 

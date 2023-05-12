@@ -18,7 +18,7 @@ Future<void> makePhoneCall(String phoneNumber) async {
 //URL LAUNCHER Future<void> makePhoneCall(String phoneNumber) async {
 Future<void> makeSms(String phoneNumber) async {
   final Uri launchUri = Uri(
-    scheme: 'tel',
+    scheme: 'sms',
     path: phoneNumber,
   );
   await launchUrl(launchUri);
