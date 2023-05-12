@@ -9,7 +9,7 @@ class DetailScreen extends StatelessWidget {
 
   const DetailScreen({super.key, required this.data});
 
-  // get idx => data;
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +86,9 @@ class DetailScreen extends StatelessWidget {
                           width: 40,
                           height: 40,
                           child: IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                makeSms(data['phone'].toString());
+                              },
                               icon: Icon(color: Colors.white, Icons.sms)),
                         ),
                       ],

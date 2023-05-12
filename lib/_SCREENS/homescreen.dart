@@ -1,7 +1,9 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_interpolation_to_compose_strings
 
 //import 'package:contact_app/_UTILS/const.dart';
+import 'package:contact_app/_UTILS/add.dart';
 import 'package:flutter/material.dart';
+import '../_UTILS/const.dart';
 import '../_UTILS/data.dart';
 import 'form.dart';
 import 'detailscreen.dart';
@@ -31,13 +33,6 @@ class _HomeScreenState extends State<HomeScreen> {
     surnamecontroller.clear();
   }
 
-  void ontabrecenthistory(int index) {
-    Data.recenthistory.add({
-      'name': Data.contact[index]['name'].toString(),
-      'phone': Data.contact[index]['phone'].toString(),
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -62,37 +57,60 @@ class _HomeScreenState extends State<HomeScreen> {
               itemCount: Data.contact.length,
               itemBuilder: (context, idx) {
                 return ListTile(
-                  onTap: () {
-                    ontabrecenthistory(idx);
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              DetailScreen(data: Data.contact[idx]),
-                        ));
-                  },
-                  leading: Container(
-                    width: 50,
-                    height: 50,
-                    decoration: BoxDecoration(
-                        shape: BoxShape.circle, color: Colors.grey.shade300),
-                    child: Center(
-                      child: Text(
-                          style: TextStyle(fontSize: 18),
-                          Data.contact[idx]['name']
-                              .toString()[0]
-                              .toUpperCase()),
+                    onTap: () {
+                      ontabrecenthistory(
+                          idx,
+                          Data.contact[idx]['name'].toString(),
+                          Data.contact[idx]['phone'].toString());
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                DetailScreen(data: Data.contact[idx]),
+                          ));
+                    },
+                    leading: Container(
+                      width: 40,
+                      height: 40,
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle, color: Colors.grey.shade300),
+                      child: Center(
+                        child: Text(
+                            style: TextStyle(fontSize: 16),
+                            Data.contact[idx]['name']
+                                .toString()[0]
+                                .toUpperCase()),
+                      ),
                     ),
-                  ),
-                  title: Text(Data.contact[idx]['name'].toString()),
-                  subtitle: Text(Data.contact[idx]['phone'].toString()),
-                  trailing: Icon(color: Colors.green, Icons.call),
-                );
+                    title: Text(
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w500),
+                        Data.contact[idx]['name'].toString()),
+                    subtitle: Text(
+                        style: TextStyle(
+                            fontSize: 12, fontWeight: FontWeight.normal),
+                        Data.contact[idx]['phone'].toString()),
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        IconButton(
+                            onPressed: () => makePhoneCall(
+                                Data.contact[idx]['phone'].toString()),
+                            icon: Icon(color: Colors.green, Icons.call)),
+                        IconButton(
+                            onPressed: () =>
+                                makeSms(Data.contact[idx]['phone'].toString()),
+                            icon:
+                                Icon(color: Colors.yellow.shade800, Icons.sms)),
+                      ],
+                    ));
               },
             ),
 
             //FLOATING ACTION BUTTON
             floatingActionButton: FloatingActionButton(
+              elevation: 0,
+              backgroundColor: Colors.grey.shade800,
               onPressed: () => showDialog<String>(
                 context: context,
                 builder: (BuildContext context) => AlertDialog(
