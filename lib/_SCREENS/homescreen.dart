@@ -31,6 +31,13 @@ class _HomeScreenState extends State<HomeScreen> {
     surnamecontroller.clear();
   }
 
+  void ontabrecenthistory(int index) {
+    Data.recenthistory.add({
+      'name': Data.contact[index]['name'].toString(),
+      'phone': Data.contact[index]['phone'].toString(),
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -46,7 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     IconButton(onPressed: () {}, icon: Icon(Icons.search)),
-                    IconButton(onPressed: () {}, icon: Icon(Icons.menu)),
+                    IconButton(onPressed: () {}, icon: Icon(Icons.more_vert)),
                   ],
                 )
               ],
@@ -54,8 +61,9 @@ class _HomeScreenState extends State<HomeScreen> {
             body: ListView.builder(
               itemCount: Data.contact.length,
               itemBuilder: (context, idx) {
-                return InkWell(
+                return ListTile(
                   onTap: () {
+                    ontabrecenthistory(idx);
                     Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -63,30 +71,22 @@ class _HomeScreenState extends State<HomeScreen> {
                               DetailScreen(data: Data.contact[idx]),
                         ));
                   },
-                  child: ListTile(
-                    leading: Container(
-                      width: 50,
-                      height: 50,
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle, color: Colors.grey.shade300),
-                      child: Center(
-                        child: Text(
-                            style: TextStyle(fontSize: 18),
-                            Data.contact[idx]['name']
-                                .toString()[0]
-                                .toUpperCase()),
-                      ),
+                  leading: Container(
+                    width: 50,
+                    height: 50,
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle, color: Colors.grey.shade300),
+                    child: Center(
+                      child: Text(
+                          style: TextStyle(fontSize: 18),
+                          Data.contact[idx]['name']
+                              .toString()[0]
+                              .toUpperCase()),
                     ),
-
-                    // CircleAvatar(
-                    //   radius: 20,
-                    //   backgroundColor: Colors.blue,
-                    //   backgroundImage: Images.personicon,
-                    // ),
-                    title: Text(Data.contact[idx]['name'].toString()),
-                    subtitle: Text(Data.contact[idx]['phone'].toString()),
-                    trailing: Icon(color: Colors.green, Icons.call),
                   ),
+                  title: Text(Data.contact[idx]['name'].toString()),
+                  subtitle: Text(Data.contact[idx]['phone'].toString()),
+                  trailing: Icon(color: Colors.green, Icons.call),
                 );
               },
             ),

@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_constructors,, prefer_typing_uninitialized_variables, prefer_const_literals_to_create_immutables
 
+import 'package:contact_app/_UTILS/const.dart';
 import 'package:flutter/material.dart';
+//import 'package:url_launcher/url_launcher.dart';
 
 class DetailScreen extends StatelessWidget {
   final Map data;
@@ -43,7 +45,7 @@ class DetailScreen extends StatelessWidget {
                     child: Center(
                         child: Text(
                             style: TextStyle(fontSize: 40),
-                            data['name'].toString()[0])),
+                            data['name'].toString()[0].toUpperCase())),
                   ),
                 ),
                 SizedBox(
@@ -69,7 +71,9 @@ class DetailScreen extends StatelessWidget {
                           width: 40,
                           height: 40,
                           child: IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                makePhoneCall(data['phone'].toString());
+                              },
                               icon: Icon(color: Colors.white, Icons.call)),
                         ),
                         SizedBox(

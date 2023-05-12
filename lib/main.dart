@@ -3,7 +3,7 @@
 //import 'package:contact_app/_SCREENS/homepage.dart';
 import 'package:flutter/material.dart';
 
-import '_SCREENS/homescreen.dart';
+import '_SCREENS/bottomnavbar.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,7 +16,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomeScreen(),
+      home: BottomNavBar(),
+
+      //home: HomeScreen(),
     );
   }
 }
