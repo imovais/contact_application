@@ -1,17 +1,9 @@
-// import 'package:contact_app/_UTILS/data.dart';
-// import 'package:flutter/material.dart';
+// function add a item into a Recent Screen
+import 'package:contact_app/_UTILS/data.dart';
 
-// addNewContact(context, name, phone) {
-//     setState(() {
-//       Navigator.pop(context);
-//       Data.contact.add({
-//         "name": name.text,
-//         "userName": "codewithowais",
-//         "number": phone.text,
-//       });
-//       name.clear();
-//     });
-//   }
-  
-//   void setState(Null Function() param0) {
-//   }
+void ontabrecenthistory(int index, String name, String phone) {
+  Data.recenthistory.add({
+    'name': name,
+    'phone': phone
+  });
+}

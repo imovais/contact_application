@@ -6,7 +6,17 @@ class Images {
       const AssetImage('assets/images/personicon.jpg');
 }
 
+//URL LAUNCHER FOR CALL
 Future<void> makePhoneCall(String phoneNumber) async {
+  final Uri launchUri = Uri(
+    scheme: 'tel',
+    path: phoneNumber,
+  );
+  await launchUrl(launchUri);
+}
+
+//URL LAUNCHER Future<void> makePhoneCall(String phoneNumber) async {
+Future<void> makeSms(String phoneNumber) async {
   final Uri launchUri = Uri(
     scheme: 'tel',
     path: phoneNumber,

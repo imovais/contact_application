@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:contact_app/_SCREENS/groupscreen.dart';
 import 'package:contact_app/_SCREENS/homescreen.dart';
 import 'package:contact_app/_SCREENS/recent_history.dart';
 import 'package:flutter/material.dart';
@@ -15,11 +16,13 @@ class _BottomNavBarState extends State<BottomNavBar> {
   int _seletedtab = 0;
 
   final List _pages = [
+    //RECENT HISTORY SCREEN
     RecentHistory(),
+    // HOME SCREEN FOR CONTACT LIST
     HomeScreen(),
-    Center(
-      child: Text("Products"),
-    )
+
+    // GROUP SCREEN
+    GroupScreen()
   ];
 
   _onchangetab(int index) {
@@ -33,12 +36,27 @@ class _BottomNavBarState extends State<BottomNavBar> {
     return Scaffold(
       body: _pages[_seletedtab],
       bottomNavigationBar: BottomNavigationBar(
+          fixedColor: Colors.red,
+          showSelectedLabels: false,
+          showUnselectedLabels: false,
           currentIndex: _seletedtab,
           onTap: (value) => _onchangetab(value),
           items: [
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Recents'),
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Contacts'),
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Groups'),
+            BottomNavigationBarItem(
+                icon: Text(
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    'Recents'),
+                label: 'Recents'),
+            BottomNavigationBarItem(
+                icon: Text(
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    'Contacts'),
+                label: 'Contacts'),
+            BottomNavigationBarItem(
+                icon: Text(
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    'Groups'),
+                label: 'Groups'),
           ]),
     );
   }
